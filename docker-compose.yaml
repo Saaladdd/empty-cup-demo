@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./empty-cup
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
+    depends_on:
+      - backend
+
+  backend:
+    build: ./empty-cup-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./empty-cup-backend:/app
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_ENV=development
